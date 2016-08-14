@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">YY音乐</string>
+    <string name="localMusic">本地音乐</string>
+    <string name="CollectMusic">我喜欢的</string>
+    <string name="DownloadMusic">下载歌曲</string>
+    <string name="SongMenuMusic">我的歌单</string>
+    <string name="CreateMusicMenu">创建歌单</string>
+    <string name="SongName">歌曲名</string>
+</resources>

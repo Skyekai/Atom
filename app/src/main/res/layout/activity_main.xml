@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.test.administrator.atom.MainActivity">
+
+    <TextView
+        android:id="@+id/main_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:drawableLeft="@mipmap/logo"
+        android:gravity="center_vertical"
+        android:text="@string/app_name"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/playbg" />
+
+            <Button
+                android:id="@+id/main_locate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableLeft="@mipmap/addcover01"
+                android:onClick="click"
+                android:text="@string/localMusic"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/main_like"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableLeft="@mipmap/addcover03"
+                android:text="@string/CollectMusic"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/main_load"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawableLeft="@mipmap/addcover02"
+                android:onClick="click"
+                android:text="@string/DownloadMusic"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/SongMenuMusic"
+                android:textSize="20sp" />
+
+            <ListView
+                android:id="@+id/main_lv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+
+            <Button
+                android:id="@+id/main_addMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@null"
+                android:onClick="click"
+                android:text="@string/CreateMusicMenu"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/main_songName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="@string/SongName"
+            android:layout_marginLeft="5dp"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/main_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/bofang"
+            android:layout_margin="5dp"
+            android:onClick="click" />
+
+        <Button
+            android:id="@+id/main_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/xiayishou"
+            android:layout_margin="5dp"
+            android:onClick="click" />
+    </LinearLayout>
+</LinearLayout>
