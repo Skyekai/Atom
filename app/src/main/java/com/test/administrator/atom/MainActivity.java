@@ -50,7 +50,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (Config.isFirst==1){
+        Config.where=0;
+        if (Config.isFirst == 1) {
             sendBroadcast(new Intent(Config.MAIN_ACTION));
         }
     }
@@ -68,7 +69,7 @@ public class MainActivity extends Activity {
     }
 
     public void click(View view) {
-        Intent intent1 = new Intent();
+        Intent intent1 = new Intent(Config.SERVICE_ACTION);
         switch (view.getId()) {
             case R.id.main_locate:
                 intent1.setClass(MainActivity.this, LocalActivity.class);
@@ -76,6 +77,12 @@ public class MainActivity extends Activity {
             case R.id.main_like:
                 //TODO implement
                 return;
+            case R.id.main_songName:
+                intent1.setClass(MainActivity.this, PlayerActivity.class);
+                break;
+            case R.id.main_songer:
+                intent1.setClass(MainActivity.this, PlayerActivity.class);
+                break;
             case R.id.main_load:
                 //TODO implement
                 return;
@@ -88,16 +95,16 @@ public class MainActivity extends Activity {
                     return;
                 }
 
-                if (Config.STATE == 0||Config.STATE==-1) {
+                if (Config.STATE == 0 || Config.STATE == -1) {
                     Config.CONTROL = 2;
                 } else {
                     Config.CONTROL = 0;
                 }
-                sendBroadcast(new Intent(Config.SERVICE_ACTION));
+                sendBroadcast(intent1);
                 return;
             case R.id.main_next:
                 Config.CONTROL = 1;
-                sendBroadcast(new Intent(Config.SERVICE_ACTION));
+                sendBroadcast(intent1);
                 return;
         }
         startActivity(intent1);
@@ -148,7 +155,7 @@ public class MainActivity extends Activity {
             }
             if (Config.isFirst == 0) {
                 DBMethod.Current_insert(db);
-                Config.isFirst=1;
+                Config.isFirst = 1;
             } else if (Config.isFirst == 1) {
                 DBMethod.Current_UpData(db);
             }

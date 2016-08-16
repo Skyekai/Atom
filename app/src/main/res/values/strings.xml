@@ -7,5 +7,6 @@
     <string name="CreateMusicMenu">创建歌单</string>
     <string name="SongName">歌曲名</string>
     <string name="Singer">歌手</string>
+    <string name="DefaultTime">00:00</string>
     <string name="title_activity_player">PlayerActivity</string>
 </resources>

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.atom.domain.Info;
+import com.atom.domain.ToolMethod;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.test.administrator.atom.R;
 
@@ -61,7 +62,7 @@ public class LocalListViewAdapter extends BaseAdapter {
             holder.iv.setImageURI(Uri.parse(info.getImage()));
         }
         holder.tv1.setText(info.getName());
-        holder.tv2.setText(String.valueOf(formatTime(info.getTime())));
+        holder.tv2.setText(String.valueOf(ToolMethod.formatTime(info.getTime())));
         return v;
     }
 
@@ -71,26 +72,5 @@ public class LocalListViewAdapter extends BaseAdapter {
         SimpleDraweeView iv;
     }
 
-    public static String formatTime(Long time) {                     //将歌曲的时间转换为分秒的制度
-        String min = time / (1000 * 60) + "";
-        String sec = time % (1000 * 60) + "";
 
-        if (min.length() < 2)
-            min = "0" + min;
-        switch (sec.length()) {
-            case 4:
-                sec = "0" + sec;
-                break;
-            case 3:
-                sec = "00" + sec;
-                break;
-            case 2:
-                sec = "000" + sec;
-                break;
-            case 1:
-                sec = "0000" + sec;
-                break;
-        }
-        return min + ":" + sec.trim().substring(0, 2);
-    }
 }

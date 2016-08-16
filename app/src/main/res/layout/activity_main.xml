@@ -98,23 +98,28 @@
         android:background="#000000"
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:id="@+id/main_songName"
             android:layout_width="0dp"
+            android:onClick="click"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:gravity="left|center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
-            android:singleLine="true"
+            android:background="#000000"
             android:text="@string/SongName"
             android:textColor="#ffffff"
+            android:singleLine="true"
             android:textSize="18sp" />
 
-        <TextView
+        <Button
             android:id="@+id/main_songer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="click"
             android:layout_gravity="center_vertical"
+            android:background="#000000"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 

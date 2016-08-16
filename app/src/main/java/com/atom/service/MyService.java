@@ -21,6 +21,8 @@ import java.util.List;
 public class MyService extends Service {
     Intent intent;
     MediaPlayer player;
+    private Info info;//当前播放歌曲
+    private double CrProgress;//当前播放进度
 
     public MyService() {
 
@@ -37,22 +39,46 @@ public class MyService extends Service {
         super.onCreate();
         player = new MediaPlayer();
         registerReceiver(new Service_Reiceiver(), new IntentFilter(Config.SERVICE_ACTION));
+        registerReceiver(new SSeekReceiver(), new IntentFilter(Config.SSEEK_ACTION));
         player.setOnPreparedListener(preparedListener);
         player.setOnCompletionListener(completionListener);
-
+        data();
     }
 
     //播放音乐
     private void playMusic(List<Info> infos) {
-        Info info = infos.get(Config.POSITION);
+        info = infos.get(Config.POSITION);
         player.reset();
-            try {
-                player.setDataSource(info.getUrl());
-                player.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            player.setDataSource(info.getUrl());
+            player.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    //绑定seekbar,实时发送播放状态
+    private void data() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                Intent intent = new Intent(Config.PSEEK_ACTION);
+                while (true) {
+                    try {
+                        Thread.sleep(900);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (Config.where == 1&&Config.STATE==1) {
+                        CrProgress = (double) player.getCurrentPosition() / player.getDuration();
+                        intent.putExtra("progress", CrProgress);
+                        sendBroadcast(intent);
+                    }
+                }
+            }
+        }.start();
     }
 
     MediaPlayer.OnPreparedListener preparedListener = new MediaPlayer.OnPreparedListener() {
@@ -66,11 +92,16 @@ public class MyService extends Service {
         public void onCompletion(MediaPlayer mp) {
             switch (Config.MENU) {
                 case 0:
+                    //播放结束后播放下一首
                     if (++Config.POSITION >= LocalActivity.infos.size()) {
                         Config.POSITION = 0;
                     }
                     playMusic(LocalActivity.infos);
-                    sendBroadcast(new Intent(Config.MAIN_ACTION));
+                    if (Config.where == 0) {
+                        sendBroadcast(new Intent(Config.MAIN_ACTION));
+                    } else if (Config.where == 1) {
+                        sendBroadcast(new Intent(Config.PLAYER_ACTION));
+                    }
                     break;
             }
         }
@@ -99,17 +130,32 @@ public class MyService extends Service {
                     Config.STATE = 1;
                     break;
                 case 2:
-                        if (Config.MENU==0){
-                            if (Config.STATE==0){
-                                player.start();
-                            }else {
-                                playMusic(LocalActivity.infos);
-                            }
+                    if (Config.MENU == 0) {
+                        if (Config.STATE == 0) {
+                            player.start();
+                        } else {
+                            playMusic(LocalActivity.infos);
                         }
-                        Config.STATE = 1;
+                    }
+                    Config.STATE = 1;
                     break;
             }
-            sendBroadcast(new Intent(Config.MAIN_ACTION));
+            if (Config.where == 0) {
+                sendBroadcast(new Intent(Config.MAIN_ACTION));
+            } else if (Config.where == 1) {
+                sendBroadcast(new Intent(Config.PLAYER_ACTION));
+            }
+        }
+    }
+
+    class SSeekReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (info == null) {
+                return;
+            }
+            CrProgress = intent.getDoubleExtra("progress", 0);
+            player.seekTo((int) (info.getTime() * CrProgress));
         }
     }
 }
