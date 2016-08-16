@@ -19,6 +19,7 @@ public class DBMethod {
         values.put(Config.DC_CURRENT_MENU, Config.MENU+"");
         values.put(Config.DC_CURRENT_ISFIRST,1+"");
         db.insert(Config.TB_CURRENT, null, values);
+
     }
     //更改当前歌曲
     public static void Current_UpData(SQLiteDatabase db){
